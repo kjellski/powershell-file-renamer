@@ -22,6 +22,11 @@ function Split-FileNames {
       
       $filenameMatches = $regex.Matches($sourceFilename)
 
+      # if it's a non matching filename
+      If($filenameMatches.Groups.Count -lt 10) {
+        continue
+      }
+
       $prefix = $filenameMatches.Groups[1].Value
       $floorService = $filenameMatches.Groups[2].Value
       $drawingLabel = $filenameMatches.Groups[7].Value
@@ -39,7 +44,12 @@ function Split-FileNames {
 
       
       $targetFilePath = "$($sourceDirectory)\$($targetFilename)"
-      Copy-Item -Path $sourceFilePath -Destination $targetFilePath
+
+      Write-Output "Copy"
+      Write-Output "From: $($sourceFilePath)"
+      Write-Output "To:   $($targetFilePath)"
+      Write-Output "----------------------------------------------------"
+      Copy-Item -Path $sourceFilePath -Destination $targetFilePath -Force
     }
   }
 }
