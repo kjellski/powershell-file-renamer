@@ -41,14 +41,13 @@ function Split-FileNames {
       $complexGroup = @($numberRev1, $numberRev2, $numberRev3, $numberRev4) | Where-Object { $_.StartsWith($comaprisonGroup) }
 
       $targetFilename = "$($prefix)$($coreLetter)$($floorService)$($complexGroup)$drawingLabel$($coreGroup).pdf"
-
-      
       $targetFilePath = "$($sourceDirectory)\$($targetFilename)"
 
       Write-Output "Copy"
       Write-Output "From: $($sourceFilePath)"
       Write-Output "To:   $($targetFilePath)"
       Write-Output "----------------------------------------------------"
+
       Copy-Item -Path $sourceFilePath -Destination $targetFilePath -Force
     }
   }
