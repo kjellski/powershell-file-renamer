@@ -52,7 +52,7 @@ function Split-FileNames {
       $numberRev3 = $filenameMatches.Groups[4].Value #can be 3,7,C
       $numberRev4 = $filenameMatches.Groups[5].Value #can be 4,8,D
       
-      $comaprisonGroup = $filenameMatches.Groups[10].Value
+      $comparisonGroup = $filenameMatches.Groups[10].Value
       #correct $comparisonGroup values to replace A with 5, B with 6 etc.
       $comparisonGroupAdjusted = $comparisonGroup
       #if ($comparisonGroup -Like "A", "B", "C", "D") {
@@ -63,15 +63,14 @@ function Split-FileNames {
       if ($comparisonGroup -Like "C") {$comparisonGroupAdjusted = "7"}
       if ($comparisonGroup -Like "D") {$comparisonGroupAdjusted = "8"}
       
-      $complexGroup = @($numberRev1, $numberRev2, $numberRev3, $numberRev4) | Where-Object { $_.Substring(3) -Like ($comparisonGroupAdjusted) }
+      $complexGroup = @($numberRev1, $numberRev2, $numberRev3, $numberRev4) | Where-Object { $_.Substring(3,1) -Like ($comparisonGroupAdjusted) }
       #Need to change from .StartsWith to matching the 4th character. Match either 1 or 5 / 2 or 6...
 
       $targetFilename = "$($prefix)$($complexGroup)$drawingLabel$($coreSheet)$($coreLetterAdjusted)$suffix.pdf"
 
-      
       $targetFilePath = "$($sourceDirectory)\$($targetFilename)"
-
-      Write-Output "Copy"
+      
+      Write-Output "Copy" 
       Write-Output "From: $($sourceFilePath)"
       Write-Output "To:   $($targetFilePath)"
       Write-Output "----------------------------------------------------"
